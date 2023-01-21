@@ -5,8 +5,8 @@
 using namespace std;
 
 // time complexity: O(n) because of the for loop
-// space complexity: O(1) because the algorithm doesn't use extra space of size n
-// (not including output space)
+// space complexity: O(1) because the algorithm doesn't use extra space of size n 
+// when not including output space
 vector<string> fizzBuzz(int n)
 {
 	// holds fizz buzz answers
@@ -47,11 +47,14 @@ vector<string> fizzBuzz(int n)
 	answer[i] == "Fizz" if i is divisible by 3.
 	answer[i] == "Buzz" if i is divisible by 5.
 	answer[i] == i (as a string) if none of the above conditions are true.
+	
+	Constraints:
+	1 <= n <= 10^4
 */
 int main()
 {
-	int num = 15;
-	vector<string> fb = fizzBuzz(15);
+	int n = 15;
+	vector<string> fb = fizzBuzz(n);
 	
 	for (int i = 0; i < fb.size(); i++)
 	{
