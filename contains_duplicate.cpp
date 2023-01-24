@@ -2,6 +2,7 @@
 #include <vector>
 #include <algorithm>
 #include <set>
+#include <unordered_set>
 
 using namespace std;
 
@@ -46,6 +47,26 @@ bool containsDuplicateSet(vector<int> nums)
 	return false;
 }
 
+// unordered set method
+// time complexity: O(n) because unordered_set insertion is constant and
+// we're doing it n times
+// space complexity: O(n) because the unordered set can be of size n
+bool containsDuplicateUnorderedSet(vector<int> nums)
+{
+	// inserting the elements in nums in a set
+	// which removes any duplicates
+	unordered_set<int> s(nums.begin(), nums.end());
+	
+	// the set is smaller than the vector
+	// meaning there were duplicates
+	if (s.size() < nums.size())
+	{
+		return true;
+	}
+	
+	return false;
+}
+
 /*
 	Given an integer array nums, return true if any value appears at least twice 
 	in the array, and return false if every element is distinct.
@@ -61,6 +82,7 @@ int main()
 	// 1 = true and 0 = false
 	cout << containsDuplicateSort(nums) << endl;
 	cout << containsDuplicateSet(nums) << endl;
+	cout << containsDuplicateUnorderedSet(nums) << endl;
 	
 	return 0;
 }
