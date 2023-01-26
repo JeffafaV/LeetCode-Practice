@@ -85,7 +85,6 @@ int missingNumberSum(vector<int> nums)
 	return the only number in the range that is missing from the array.
 	
 	Constraints:
-
 	n == nums.length
 	1 <= n <= 104
 	0 <= nums[i] <= n
