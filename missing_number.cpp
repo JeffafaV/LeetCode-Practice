@@ -25,7 +25,7 @@ int missingNumberCounter(vector<int> nums)
 	int j = 0;
 	
 	// loop unitl we find the unmarked number
-	while (c[i] != 0)
+	while (c[j] != 0)
 	{
 		j++;
 	}
