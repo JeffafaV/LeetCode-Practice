@@ -107,9 +107,10 @@ int main()
 {
 	vector<int> nums = {3, 2, 0, -4};
 	
-	ListNode *head = createLinkedList(nums);
+	struct ListNode *head = createLinkedList(nums);
 	addLoop(head, -1, nums.size());
 	
+	// 1 = true and 0 = false
 	cout << hasCycle(head) << endl;
 	
 	return 0;
