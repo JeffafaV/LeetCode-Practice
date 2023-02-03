@@ -39,23 +39,65 @@ ListNode *createLinkedList(vector<int> nums)
 	
 	return head;
 }
-
-bool hasCycle(ListNode *head)
+// fast and slow pointer method 1
+// time complexity: O(n) because the while loop iterates n times
+// if the last node loops to the first node
+// space complexity: O(1) because no extra space of size n is used
+bool hasCycleFS1(ListNode *head)
 {
+	// slow pointer
 	struct ListNode *t1 = head;
+	// fast pointer
 	struct ListNode *t2 = head;
 	
+	// move to the next node if t2's current node isn't null
 	while (t2 != NULL)
 	{
+		// move to the next node
 		t1 = t1->next;
 		t2 = t2->next;
 		
+		// check if the current t2 node isn't null
 		if ( t2 != NULL)
 		{
+			// only move t2 to the next node
 			t2 = t2->next;
 		}
 		
+		// since t2 is going twice as fast as t1, t2 will reach t1 if there is a loop
+		// except for the case in which there is a linked list with one node
+		// without a loop in which case we have to make sure t1 and t2 aren't null
 		if (t1 == t2 && t1 != NULL && t2 != NULL)
+		{
+			return true;
+		}
+	}
+	
+	return false;
+}
+
+// fast and slow pointer method 2
+// time complexity: O(n) because the while loop iterates n times
+// if the last node loops to the first node
+// space complexity: O(1) because no extra space of size n is used
+bool hasCycleFS2(ListNode *head)
+{
+	// slow pointer
+	struct ListNode *t1 = head;
+	// fast pointer
+	struct ListNode *t2 = head;
+	
+	// move to the next node if t1 and t2's current node isn't null
+	// and if the next node from t2's current node isn't null
+	while (t2 != NULL && t2->next != NULL && t1 != NULL)
+	{
+		// move t1 one node
+		t1 = t1->next;
+		// move t2 two nodes
+		t2 = t2->next->next;
+		
+		// since t2 is going twice as fast as t1, t2 will reach t1 if there is a loop
+		if (t1 == t2)
 		{
 			return true;
 		}
@@ -111,7 +153,8 @@ int main()
 	addLoop(head, -1, nums.size());
 	
 	// 1 = true and 0 = false
-	cout << hasCycle(head) << endl;
+	cout << hasCycleFS1(head) << endl;
+	cout << hasCycleFS2(head) << endl;
 	
 	return 0;
 }
