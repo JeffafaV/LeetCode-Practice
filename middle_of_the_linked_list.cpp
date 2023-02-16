@@ -49,6 +49,8 @@ ListNode *middleNodeCount(ListNode *head)
 {
 	// used to traverse the list
 	ListNode *t1 = head;
+	// used to reach the middle node
+	ListNode *t2 = head;
 	
 	// counts the number of nodes
 	int nodeCount = 1;
@@ -62,10 +64,6 @@ ListNode *middleNodeCount(ListNode *head)
 	
 	// divide node count by 2 to get the middle node position
 	int middlePos = nodeCount/2;
-	
-	// used to reach the middle node
-	// we can also reuse t1
-	ListNode *t2 = head;
 	
 	// travese linked list until we reach the middle node
 	for (int i = 0; i < middlePos; i++)
@@ -125,7 +123,7 @@ int main()
 	cout << endl;
 	
 	ListNode *head2 = createLinkedList(nums);
-	ListNode *middle2 = middleNodeCount(head2);
+	ListNode *middle2 = middleNodeFS(head2);
 	ListNode *t2 = middle2;
 	
 	while (t2 != NULL)

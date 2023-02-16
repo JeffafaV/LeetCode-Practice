@@ -45,18 +45,21 @@ ListNode *createLinkedList(vector<int> nums)
 // then we go through it again up to the middle node
 // space complexity: O(1) because we use the same amount of variables 
 // of the same size regardless of what n is
-ListNode *middleNodeCount(ListNode *head)
+ListNode *deleteMiddleCount(ListNode *head)
 {
-	// this is a special case for when the list has one node
+	// this is a special case for when the list has only one node
 	if (head->next == NULL)
 	{
 		delete head;
 		
 		return NULL;
 	}
+	
+	// used to traverse the list to count the number of nodes
 	ListNode *temp = head;
-	// used to traverse the list
+	// used to get to the middle node
 	ListNode *t1 = head;
+	// this will be behind t1
 	ListNode *t2 = NULL;
 	
 	// counts the number of nodes
@@ -79,8 +82,10 @@ ListNode *middleNodeCount(ListNode *head)
 		t1 = t1->next;
 	}
 	
+	// have t2 point to whatever the middle node is pointing to
+	// this is necessary so that the linked list doesn't break
 	t2->next = t1->next;
-	
+	// delete the middle node
 	delete t1;
 	
 	return head;
@@ -88,27 +93,42 @@ ListNode *middleNodeCount(ListNode *head)
 
 // fast and slow pointer method
 // time complexity: O(n) because we only loop through half way of the list
-// space complexity: O(1) because we only need two extra pointers regardless of n
-ListNode *middleNodeFS(ListNode *head)
+// space complexity: O(1) because we only need three extra pointers regardless of n
+ListNode *deleteMiddleFS(ListNode *head)
 {
+	// this is a special case for when the list has only one node
+	if (head->next == NULL)
+	{
+		delete head;
+		
+		return NULL;
+	}
+	
 	// fast pointer
 	ListNode *t1 = head;
 	// slow pointer
 	ListNode *t2 = head;
+	// behind t2 by 1 node
 	ListNode *t3 = NULL;
 	
 	// loop until either t1 is null or next points to null
 	while (t1 != NULL && t1->next != NULL)
 	{
+		// move up to t2
+		t3 = t2;
 		// increment by 1 node
 		t2 = t2->next;
 		// increment by 2 nodes
 		t1 = t1->next->next;
 	}
 	
-	// since t1 is incrementing by two nodes and t2 is incrementing by one
-	// when t1 reaches the end of the list t2 will be at the middle of the list
-	return t2;
+	// have t3 point to whatever the middle node is pointing to
+	// this is necessary so that the linked list doesn't break
+	t3->next = t2->next;
+	// delete the middle node
+	delete t2;
+	
+	return head;
 }
 
 /*
@@ -129,8 +149,8 @@ int main()
 	vector<int> nums = {1, 2, 3, 4, 5};
 	
 	ListNode *head = createLinkedList(nums);
-	ListNode *middle = middleNodeCount(head);
-	ListNode *t = middle;
+	head = deleteMiddleCount(head);
+	ListNode *t = head;
 	
 	while (t != NULL)
 	{
@@ -141,8 +161,8 @@ int main()
 	cout << endl;
 	
 	ListNode *head2 = createLinkedList(nums);
-	ListNode *middle2 = middleNodeCount(head2);
-	ListNode *t2 = middle2;
+	head2 = deleteMiddleFS(head2);
+	ListNode *t2 = head2;
 	
 	while (t2 != NULL)
 	{
