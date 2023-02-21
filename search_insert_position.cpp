@@ -4,8 +4,8 @@
 using namespace std;
 
 // binary search method
-// time complexity: O(log(n))
-// space complexity: O(1)
+// time complexity: O(log(n)) because we are using binary search
+// space complexity: O(1) because we only use three int variables
 int searchInsert(vector<int> nums, int target)
 {
 	// left end pointer
