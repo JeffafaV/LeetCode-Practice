@@ -4,6 +4,7 @@
 
 using namespace std;
 
+// modulo method
 // time complexity: O(n) because of the for loop
 // space complexity: O(1) because the algorithm doesn't use extra space of size n 
 // when not including output space
