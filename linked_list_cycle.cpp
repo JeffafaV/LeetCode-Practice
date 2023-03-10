@@ -39,6 +39,7 @@ ListNode *createLinkedList(vector<int> nums)
 	
 	return head;
 }
+
 // fast and slow pointer method 1
 // time complexity: O(n) because the while loop iterates n times
 // if the last node loops to the first node
