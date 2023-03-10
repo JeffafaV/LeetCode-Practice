@@ -87,9 +87,10 @@ bool hasCycleFS2(ListNode *head)
 	// fast pointer
 	struct ListNode *t2 = head;
 	
-	// move to the next node if t1 and t2's current node isn't null
+	// move to the next node if t2's current node isn't null
 	// and if the next node from t2's current node isn't null
-	while (t2 != NULL && t2->next != NULL && t1 != NULL)
+	// we don't have to check t1 since it is behind t2
+	while (t2 != NULL && t2->next != NULL)
 	{
 		// move t1 one node
 		t1 = t1->next;
