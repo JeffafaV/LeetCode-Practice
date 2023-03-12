@@ -21,6 +21,7 @@ int searchInsert(vector<int> nums, int target)
 	{
 		// calculate the index of middle pointer
 		// alternatively we can use low + (high - low) / 2
+		// so that we can avoid integer overflow
 		// however given the restraints this is fine
 		mid = (low + high) / 2;
 		
