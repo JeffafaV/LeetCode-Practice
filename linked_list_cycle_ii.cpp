@@ -122,10 +122,13 @@ void addLoop(ListNode *head, int pos, int size)
 	}
 }
 
+// gets the position of the first node in the cycle if there is one
 void getPos(ListNode *head, ListNode *node)
 {
+	// used to store index
 	int count = 0;
 	
+	// NULL means there was no cycle
 	if (node == NULL)
 	{
 		cout << "no cycle";
@@ -133,8 +136,10 @@ void getPos(ListNode *head, ListNode *node)
 		return;
 	}
 	
+	// temporary pointer used to cycle through the list
 	ListNode *t = head;
 	
+	// stop looping until we reach the first node in the cycle
 	while (t != node)
 	{
 		count++;
