@@ -107,107 +107,111 @@ TreeNode *createBinaryTree()
 }
 
 // extra storage method
-// time complexity: O(n) because we only ever loop at most 2n times in each loop and 
-// n is the number of nodes for both trees
-// space complexity: O(n) because our containers will use a total of 4n space
+// time complexity: O(n) because we only ever loop at most n times in each loop and 
+// n is the number of nodes for the tree
+// space complexity: O(n) because our containers will use a total of 2n space
 // in order to store all the node and null address values
-bool isSameTree(TreeNode *root)
+bool isSymmetric(TreeNode *root)
 {
-	// queue used to hold the first tree's TreeNode pointers
+	// queue used to hold the left side of the tree's TreeNode pointers
 	// used to help go through the tree in level order
 	queue<TreeNode *> lQueue;
-	// push p's root node into the queue
+	// push root's left address value into the queue
 	lQueue.push(root->left);
-	// used to store all the node and null address values of p's tree
+	// used to store all the node and null address values of the left side of the tree
 	vector<TreeNode *> lVector;
 	
-	// continue until pQueue is empty
+	// continue until lQueue is empty
 	// note that we also store null in the queue
-	// which will increase the number of loops to 2n
-	// and will give pVector a size of 2n
+	// which will increase the number of loops to n
+	// and will give lVector a size of n
 	while (lQueue.size() != 0)
 	{
 		// used to hold the first item in the queue
 		TreeNode *lt;
-		// set p1 to the first item in the queue which can be a node or null address
-		lt = pQueue.front();
-		// push p1's value (node address or null) into the vector
+		// set lt to the first item in the queue which can be a node or null address
+		lt = lQueue.front();
+		// push lt's value (node address or null) into the vector
 		lVector.push_back(lt);
 		// remove the first item from the queue
 		lQueue.pop();
 		
-		// p1 points to a node
+		// lt points to a node
 		if (lt != NULL)
 		{
-			// push p1's left child to the queue
+			// push lt's left child to the queue
 			lQueue.push(lt->left);
-			// push p1's right child to the queue
+			// push lt's right child to the queue
 			lQueue.push(lt->right);
 		}
 	}
 	
-	// queue used to hold the second tree's TreeNode pointers
+	// queue used to hold the right side of the tree's TreeNode pointers
 	// used to help go through the tree in level order
 	queue<TreeNode *> rQueue;
-	// push q's root node into the queue
+	// push root's right address value into the queue
 	rQueue.push(root->right);
-	// used to store all the node and null address values of q's tree
+	// used to store all the node and null address values of the right side of the tree
 	vector<TreeNode *> rVector;
 	
-	// continue until qQueue is empty
+	// continue until rQueue is empty
 	// note that we also store null in the queue
-	// which will increase the number of loops to 2n
-	// and will give qVector a size of 2n
+	// which will increase the number of loops to n
+	// and will give rVector a size of n
 	while (rQueue.size() != 0)
 	{
 		// used to hold the first item in the queue
 		TreeNode *rt;
-		// set q1 to the first item in the queue which can be a node or null address
+		// set rt to the first item in the queue which can be a node or null address
 		rt = rQueue.front();
-		// push q1's value (node address or null) into the vector
+		// push rt's value (node address or null) into the vector
 		rVector.push_back(rt);
 		// remove the first item from the queue
 		rQueue.pop();
 		
-		// q1 points to a node
+		// rt points to a node
 		if (rt != NULL)
 		{
-			// push q1's left child to the queue
+			// push rt's right child to the queue
 			rQueue.push(rt->right);
-			// push q1's right child to the queue
+			// push rt's left child to the queue
 			rQueue.push(rt->left);
+			
+			// note that since we are checking if the left and right side are mirrored
+			// we have to first push rt's right child, this way the nodes in the vectors are
+			// aligned correctly and we can then check if the structure and values are the same
 		}
 	}
 	
-	// loop through all pointer values in both trees using their vectors
-	// note that both trees have the same number of nodes (n nodes) 
-	// and we can use either pVector.size() or qVector.size()
+	// loop through all pointer values in both sides using their vectors
+	// note that both sides have the same number of nodes (n/2 nodes) 
+	// and we can use either lVector.size() or rVector.size()
 	for (int i = 0; i < lVector.size(); i++)
 	{
-		// current item in one tree is null and the 
-		// current item in the other tree is a node
+		// current item in one side is null and the 
+		// current item in the other side is a node
 		if ((lVector[i] == NULL && rVector[i] != NULL) ||
 		(lVector[i] != NULL && rVector[i] == NULL))
 		{
-			// reaching here means that the trees don't have the 
+			// reaching here means that the sides don't have the 
 			// same structure so we return false
 			return false;
 		}
-		// current item in both trees are nodes
+		// current item in both sides are nodes
 		else if (lVector[i] != NULL && rVector[i] != NULL)
 		{
 			// current node values are not the same
 			if (lVector[i]->val != rVector[i]->val)
 			{
-				// reaching here means that the trees don't have the 
+				// reaching here means that the sides don't have the 
 				// same values in their nodes so we return false
 				return false;
 			}
 		}
 	}
 	
-	// reaching here means that the trees are structurally identical
-	// have the same node values
+	// reaching here means that the sides are mirrored 
+	// (symmetrically identical) and have the same node values
 	return true;
 }
 
@@ -223,7 +227,7 @@ int main()
 {
 	// set the root node and create the binary tree
 	cout << "First binary tree" << endl;
-	TreeNode *root1 = createBinaryTree();
+	TreeNode *root = createBinaryTree();
 	
 	// 1 = true and 0 = false
 	cout << isSymmetric(root);
